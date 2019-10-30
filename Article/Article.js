@@ -85,8 +85,34 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'My Custome Article Title',
+    date: 'Jan 1st, 2222',
+    firstParagraph: `Pidgey Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pidgeotto Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Pidgeot Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rattata Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Raticate Lorem ipsum dolor sit amet, consectetur adipiscing elit. Spearow Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Fearow Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ekans Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Arbok Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pikachu Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Raichu Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sandshrew Lorem ipsum dolor sit amet, consectetur adipiscing
+    elit. Sandslash Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nidoran Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Nidorina Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nidoqueen Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Nidoran Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nidorino Lorem ipsum dolor
+    sit amet, consectetur adipiscing elit. Nidoking Lorem ipsum `,
+
+    secondParagraph: `Alohamora wand elf parchment, Wingardium Leviosa hippogriff, house dementors betrayal. Holly, Snape centaur portkey ghost
+    Hermione spell bezoar Scabbers. Peruvian-Night-Powder werewolf, Dobby pear-tickle half-moon-glasses, Knight-Bus. Padfoot
+    snargaluff seeker: Hagrid broomstick mischief managed. Snitch Fluffy rock-cake, 9 ¾ dress robes I must not tell lies. Mudbloods
+    yew pumpkin juice phials Ravenclaw’s Diadem 10 galleons Thieves Downfall. Ministry-of-Magic mimubulus mimbletonia Pigwidgeon
+    knut phoenix feather other minister Azkaban. Hedwig Daily Prophet treacle tart full-moon Ollivanders You-Know-Who cursed.
+    Fawkes maze raw-steak Voldemort Goblin Wars snitch Forbidden forest grindylows wool sockssles `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
-];
+  
+]; 
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
@@ -98,7 +124,60 @@ const data = [
 
     <span class='expandButton'></span>
   </div>
+  */
+  function createArticle (obj){
+    const articleDiv = document.createElement('div');
+    articleDiv.classList.add('article');
 
+    const articleTitle = document.createElement('h2');
+    articleTitle.innerText = obj.title;
+
+
+    const dateP = document.createElement('p');
+    dateP.classList.add('date');
+    dateP.innerText = obj.date;
+    //  Three P elements
+    const pElement1 = document.createElement('p');
+    pElement1.innerText = obj.firstParagraph;
+    const pElement2 = document.createElement('p');
+    pElement2.innerText = obj.secondParagraph;
+    const pElement3 = document.createElement('p');
+    pElement2.innerText = obj.thirdParagraph;
+    // P elements end
+    const spanButton = document.createElement('span');
+    spanButton.classList.add('expandButton');
+    spanButton.innerText = 'Open'
+
+    spanButton.addEventListener('click', e => {  
+     
+      
+      
+      e.target.parentNode.classList.toggle('article-open');
+      if (e.target.innerText === 'Open'){
+        e.target.innerText = 'Close';
+      }else{
+        e.target.innerText = 'Open';
+      }
+  
+  }); 
+
+    articleDiv.appendChild(articleTitle);
+    articleDiv.appendChild(dateP);
+    articleDiv.appendChild(pElement1);
+    articleDiv.appendChild(pElement2);
+    articleDiv.appendChild(pElement3);
+    articleDiv.appendChild(spanButton);
+
+    return articleDiv;
+
+
+  }
+   
+  data.map(e =>{
+    let newArtice = createArticle(e);
+    document.querySelector('.articles').appendChild(newArtice);
+  });
+  /*
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
